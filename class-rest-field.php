@@ -55,7 +55,7 @@ class REST_Field implements REST_Field_Contract, REST_Field_Schema, REST_Field_G
 	 *
 	 * @var Closure|string|null
 	 */
-	protected $update_callback;
+	protected $update_callback = null;
 
 	/**
 	 * Constructor.
