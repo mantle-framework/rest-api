@@ -46,26 +46,26 @@ class REST_Field implements REST_Field_Contract, REST_Field_Schema, REST_Field_G
 	/**
 	 * Callback for the field.
 	 *
-	 * @var callable
+	 * @var Closure|string
 	 */
 	protected $get_callback;
 
 	/**
 	 * Update callback for the field.
 	 *
-	 * @var callable|null
+	 * @var Closure|string|null
 	 */
 	protected $update_callback;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param string[]      $object_types Object types for the field.
-	 * @param string        $attribute Attribute for the field.
-	 * @param callable      $callback Get callback, required.
-	 * @param callable|null $update_callback Update callback, optional.
+	 * @param string[]            $object_types Object types for the field.
+	 * @param string              $attribute Attribute for the field.
+	 * @param Closure|string      $callback Get callback, required.
+	 * @param Closure|string|null $update_callback Update callback, optional.
 	 */
-	public function __construct( array $object_types, string $attribute, callable $callback, ?callable $update_callback = null ) {
+	public function __construct( array $object_types, string $attribute, $callback, $update_callback = null ) {
 		$this->set_object_types( $object_types );
 		$this->set_attribute( $attribute );
 		$this->set_callback( $callback );
@@ -150,36 +150,39 @@ class REST_Field implements REST_Field_Contract, REST_Field_Schema, REST_Field_G
 	 * Retrieve the get callback.
 	 *
 	 * Named 'retrieve_callback()' to avoid a collision with 'get_callback'.
+	 *
+	 * @return Closure|string
 	 */
-	public function retrieve_callback(): callable {
+	public function retrieve_callback() {
 		return $this->get_callback;
 	}
 
 	/**
 	 * Set the get callback.
 	 *
-	 * @param callable $callback Callback to set.
+	 * @param Closure|string $callback Callback to set.
 	 */
-	public function set_callback( callable $callback ): static {
+	public function set_callback( $callback ): static {
 		$this->get_callback = $callback;
 		return $this;
 	}
 
 	/**
 	 * Retrieve the set callback.
+	 *
+	 * @return Closure|string
 	 */
-	public function get_update_callback(): ?callable {
+	public function get_update_callback() {
 		return $this->update_callback;
 	}
 
 	/**
 	 * Set the update callback.
 	 *
-	 * @param callable|null $callback Callback to set.
+	 * @param Closure|string $callback Callback to set.
 	 */
-	public function set_update_callback( ?callable $callback ): static {
+	public function set_update_callback( $callback ): static {
 		$this->update_callback = $callback;
-
 		return $this;
 	}
 
